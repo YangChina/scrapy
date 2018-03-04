@@ -70,6 +70,7 @@ COOKIES_ENABLED = False
 ITEM_PIPELINES = {
     #'scrapy.contrib.pipeline.images.ImagesPipeline': 1,
     'scrapy_project.pipelines.SpiderMeizituPipeline': 300,
+    'scrapy_project.pipelines.SpiderDoubanPipeline': 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -12,7 +12,9 @@ class MeizituSpider(Spider):
     start_urls = {
         'http://www.meizitu.com/a/more_1.html',
     }
-
+    custom_settings = {
+        'ITEM_PIPELINES':{'scrapy_project.pipelines.SpiderMeizituPipeline': 300},
+    }
     def parse(self, response):
         meizi_pic_lists = response.xpath('//ul[@class="wp-list clearfix"]/li')
         for i, meizi_item in enumerate(meizi_pic_lists):
