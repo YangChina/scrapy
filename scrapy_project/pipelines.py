@@ -13,49 +13,18 @@ import os
 import scrapy
 import urllib
 import time
+from scrapy.http import Request
 
 class SpiderMeizituPipeline(ImagesPipeline):
-    print('===== 开启自定义图片下载通道 =====')
+    @classmethod
     def get_media_requests(self, item, info):
-        #print('SpiderMeizituPipeline ----->>>>> item[meizitu_url]:::::',item['meizitu_url'])
-        for image_url in item['image_urls']:
-           yield scrapy.Request(image_url,meta={'item': item})
+        return Request(item['image_urls'][0],meta={'imagegroup':item['images'],'imageindex':item['index']})
 
-    def item_completed(self, results, item, info): 
-        image_paths = [x['path'] for ok, x in results if ok] 
-        print('image_paths:::',image_paths)
-        if not image_paths: 
-            raise DropItem("Item contains no images") 
-        return item 
-
-    def file_path(self, request, response=None, info=None): 
-        item = request.meta['item']
-
-        image_guid = request.url.split('/')[-1]
-        filename = u'full/{0[mote_id]}/{1}'.format(item, image_guid)
-        print('filename:::',filename)
-        return filename
-
-
-'''
-    def process_item(self, item, spider):
-        print('========== item item item ==========')
-        print('item::::::::::',item)
-        image_url = item['meizitu_url']
-        dir_path = '%s/%s' % (
-            settings.IMAGES_STORE, 
-            spider.name 
-            )
-
-        if not os.path.exists(dir_path):
-            os.makedirs(dir_path)
-
-        us = image_url.split('/')[5:]
-        image_file_name = '_'.join(us)
-        file_path = '%s/%s' % (dir_path, image_file_name)
-
-        print('========== urlretrieve start ==========')
-        urllib.request.urlretrieve(image_url, file_path)
-
-        return item
-'''
+    def file_path(self, request, response=None, info=None):
+        
+        print('SpiderMeizituPipeline -->> request:::',request)
+        imagegroup = request.meta['imagegroup']
+        imageindex = request.meta['imageindex']
+        filepath = 'full/%s/%s.jpg' % (imagegroup,imageindex)
+       
+        return filepath

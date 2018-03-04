@@ -93,7 +93,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-IMAGES_STORE = '/Volumes/data/Python/scrapy_project/scrapy_project/meizitu'
+IMAGES_STORE = '/home/along/python/scrapy_project/meizitu'
 
 USER_AGENT_LIST = [
     'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)',
